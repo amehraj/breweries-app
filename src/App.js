@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchForm from './SearchForm';
 import BreweryData from './BreweryData';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const App = (props) => {
   const [apiData, setapiData] = useState(props.apiData);
@@ -34,12 +35,21 @@ const App = (props) => {
 
   return (
     <div className="App">
-      <SearchForm filterData={filterData} setSearchTerm={setSearchTerm}/>
-      {filteredData.map(brewery => (
-        <div key={brewery.id}>
-            <BreweryData brewery={brewery}/>
-        </div>
-      ))}
+      <h1><center>Breweries App</center></h1>
+      <Container>
+        <Row>
+          <SearchForm filterData={filterData} setSearchTerm={setSearchTerm}/>
+        </Row>
+        <Row>
+          {filteredData.map(brewery => (
+            <Col md={4}>
+            <div key={brewery.id} className="card mt-4">
+                <BreweryData brewery={brewery}/>
+            </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 }
